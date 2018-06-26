@@ -3,6 +3,7 @@
 #include "fifo.h"
 
 #include <memory>
+#include <cmath>
 
 namespace collections {
 

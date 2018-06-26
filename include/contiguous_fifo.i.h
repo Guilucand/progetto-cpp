@@ -1,5 +1,21 @@
 
 
+constexpr size_t next_allocation(size_t current) {
+    return current * 2 * ceil(log2(current));
+}
+
+const int N = 10;
+constexpr std::array<size_t, N> lookup = []() constexpr
+{
+    std::array<size_t, N> arr = std::array<size_t, N>();
+    arr[0] = 2;
+    for (int i = 1; i < N; i++)
+        arr[i] = next_allocation(arr[i - 1]);
+
+    return arr;
+}();
+
+
 template <class T>
 contiguous_fifo<T>::contiguous_fifo() {
 }
@@ -26,7 +42,7 @@ template <class T>
 void contiguous_fifo<T>::add(const T &value) {
   if (this->_size >= this->_reserved) {
     if (this->_reserved)
-      this->_reserved *= 2;
+      this->_reserved = next_allocation(this->_reserved);
     else
       this->_reserved = 1;
     auto tmp_ptr = std::unique_ptr<T[]>((T*)operator new(this->_reserved * sizeof(T)));

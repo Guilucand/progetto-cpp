@@ -1,0 +1,10 @@
+PROJECT(progetto-cpp)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
+
+
+ADD_COMPILE_OPTIONS("-std=c++17")
+
+INCLUDE_DIRECTORIES(".")
+
+
+ADD_EXECUTABLE(main src/test.cpp)
