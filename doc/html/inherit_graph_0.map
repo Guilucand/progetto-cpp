@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classcollections_1_1fifo.html" title="Classe che rappresenta una generica struttura fifo. " alt="" coords="5,78,148,105"/>
+<area shape="rect" id="node2" href="$classcollections_1_1contiguous__fifo.html" title="Classe che rappresenta una vettore contiguo di elementi in memoria. " alt="" coords="199,5,354,47"/>
+<area shape="rect" id="node3" href="$classcollections_1_1linked__fifo.html" title="Classe che rappresenta una forward linked&#45;list. " alt="" coords="213,71,340,112"/>
+<area shape="rect" id="node4" href="$classcollections_1_1multilinked__fifo.html" title="collections::multilinked\l_fifo\&lt; T, _BucketSize \&gt;" alt="" coords="196,136,357,177"/>
+</map>

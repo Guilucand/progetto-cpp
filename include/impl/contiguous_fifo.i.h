@@ -12,7 +12,7 @@ constexpr size_t next_allocation(size_t current) {
         tmp /= 2;
     }
 
-    return current * 2 * tmp;
+    return current * 2 * log;
 }
 
 

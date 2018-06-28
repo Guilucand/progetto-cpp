@@ -169,19 +169,28 @@ ADD_TEST(NAME CompileTest
 
 ADD_TEST(NAME ContiguousFifoTest
          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
-         COMMAND ./collections_test [ContiguousFifoTest] -s 1024)
+         COMMAND ./collections_test [ContiguousFifoTest] -x 1024)
 
 ADD_TEST(NAME LinkedFifoTest
          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
-         COMMAND ./collections_test [LinkedFifoTest] -s 1024)
+         COMMAND ./collections_test [LinkedFifoTest] -x 1024)
 
 ADD_TEST(NAME MultilinkedFifoTest
          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
-         COMMAND ./collections_test [MultilinkedFifoTest] -s 1024)
+         COMMAND ./collections_test [MultilinkedFifoTest] -x 1024)
 
 ADD_TEST(NAME ConcatFifoTest
           WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
-          COMMAND ./collections_test [ConcatFifoTest] -s 1024)
+          COMMAND ./collections_test [ConcatFifoTest] -x 1024)
+
+ADD_TEST(NAME AssignmentTest
+          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
+          COMMAND ./collections_test [AssignmentTest] -x 1024)
+
+ADD_TEST(NAME MismatchTest
+          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
+          COMMAND ./collections_test [MismatchTest] -x 1024)
+
 
 find_program(VALGRIND_FOUND valgrind)
 if (VALGRIND_FOUND)
@@ -189,24 +198,36 @@ if (VALGRIND_FOUND)
              WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
              COMMAND valgrind --leak-check=full --show-leak-kinds=all
                               --track-origins=yes
-                              ./collections_test [ContiguousFifoTest] -s 1024)
+                              ./collections_test [ContiguousFifoTest] -x 1024)
 
     ADD_TEST(NAME ValgrindTest2
              WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
              COMMAND valgrind --leak-check=full --show-leak-kinds=all
                               --track-origins=yes
-                              ./collections_test [LinkedFifoTest] -s 1024)
+                              ./collections_test [LinkedFifoTest] -x 1024)
 
     ADD_TEST(NAME ValgrindTest3
              WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
              COMMAND valgrind --leak-check=full --show-leak-kinds=all
                               --track-origins=yes
-                              ./collections_test [MultilinkedFifoTest] -s 1024)
+                              ./collections_test [MultilinkedFifoTest] -x 1024)
 
     ADD_TEST(NAME ValgrindTest4
            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
            COMMAND valgrind --leak-check=full --show-leak-kinds=all
                             --track-origins=yes
-                            ./collections_test [ConcatFifoTest] -s 1024)
+                            ./collections_test [ConcatFifoTest] -x 1024)
+
+    ADD_TEST(NAME ValgrindTest5
+           WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
+           COMMAND valgrind --leak-check=full --show-leak-kinds=all
+                            --track-origins=yes
+                            ./collections_test [AssignmentTest] -x 1024)
+
+    ADD_TEST(NAME ValgrindTest6
+           WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
+           COMMAND valgrind --leak-check=full --show-leak-kinds=all
+                            --track-origins=yes
+                            ./collections_test [MismatchTest] -x 1024)
 
 endif()

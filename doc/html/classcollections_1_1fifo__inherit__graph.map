@@ -1,0 +1,5 @@
+<map id="collections::fifo&lt; T &gt;" name="collections::fifo&lt; T &gt;">
+<area shape="rect" id="node2" href="$classcollections_1_1contiguous__fifo.html" title="Classe che rappresenta una vettore contiguo di elementi in memoria. " alt="" coords="196,5,351,47"/>
+<area shape="rect" id="node3" href="$classcollections_1_1linked__fifo.html" title="Classe che rappresenta una forward linked&#45;list. " alt="" coords="210,71,337,112"/>
+<area shape="rect" id="node4" href="$classcollections_1_1multilinked__fifo.html" title="collections::multilinked\l_fifo\&lt; T \&gt;" alt="" coords="196,136,351,177"/>
+</map>

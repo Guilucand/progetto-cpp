@@ -19,7 +19,7 @@ using namespace collections;
 using namespace std;
 using namespace Catch::clara;
 
-static int fifo_size = 0;
+static int fifo_size = 1024;
 
 
 /// Riempie uno std::vector e una fifo con gli stessi elementi
@@ -95,7 +95,7 @@ TEST_CASE("Multilinked fifo Test", "[MultilinkedFifoTest]") {
   check_iterators(vec, fifo);
 }
 
-TEST_CASE("Concat fifo Test", "[ConcatFifoTest]") {
+TEST_CASE("Concat fifo Test", "[AssignmentTest]") {
 
   contiguous_fifo<int>        fifo1;
   linked_fifo<int>            fifo2;
@@ -117,13 +117,81 @@ TEST_CASE("Concat fifo Test", "[ConcatFifoTest]") {
 
 }
 
+TEST_CASE("Assignment Test", "[AssignmentTest]") {
+
+  contiguous_fifo<int>        fifo1;
+  linked_fifo<int>            fifo2;
+  multilinked_fifo<int, 16>   fifo3;
+  vector<int> vec1, vec2, vec3;
+
+  fill_fifo_vector(vec1, fifo1, fifo_size);
+  fill_fifo_vector(vec2, fifo2, fifo_size);
+  fill_fifo_vector(vec3, fifo3, fifo_size);
+
+  contiguous_fifo<int>        fifoc1 = fifo1;
+  linked_fifo<int>            fifoc2 = fifo2;
+  multilinked_fifo<int, 16>   fifoc3 = fifo3;
+
+  fifo1.add(5);
+  fifo2.add(5);
+  fifo3.add(5);
+
+  check_iterators(vec1, fifoc1);
+  check_iterators(vec2, fifoc2);
+  check_iterators(vec3, fifoc3);
+
+  vec1.push_back(5);
+  vec2.push_back(5);
+  vec3.push_back(5);
+
+  check_iterators(vec1, fifo1);
+  check_iterators(vec2, fifo2);
+  check_iterators(vec3, fifo3);
+}
+
+TEST_CASE("Mismatch Test", "[MismatchTest]") {
+
+  contiguous_fifo<int>        fifo1;
+  linked_fifo<int>            fifo2;
+  multilinked_fifo<int, 16>   fifo3;
+  vector<int> vec1, vec2, vec3;
+
+  fill_fifo_vector(vec1, fifo1, fifo_size);
+  fill_fifo_vector(vec2, fifo2, fifo_size);
+  fill_fifo_vector(vec3, fifo3, fifo_size);
+
+  contiguous_fifo<int>        fifoc1 = fifo1;
+  linked_fifo<int>            fifoc2 = fifo2;
+  multilinked_fifo<int, 16>   fifoc3 = fifo3;
+
+  int change_idx = fifo_size / 2;
+
+  int backup1 = fifo1[change_idx];
+  int backup2 = fifo2[change_idx];
+  int backup3 = fifo3[change_idx];
+
+  fifo1[change_idx] = 5;
+  fifo2[change_idx] = 7;
+  fifo3[change_idx] = 9;
+
+  auto res = first_mismatch(fifo1, fifoc1);
+  REQUIRE(((*(res.first) == 5) && (*(res.second) == backup1)));
+
+  auto res1 = first_mismatch(fifo2, fifoc2);
+  REQUIRE(((*(res1.first) == 7) && (*(res1.second) == backup2)));
+
+  auto res2 = first_mismatch(fifo3, fifoc3);
+  REQUIRE(((*(res2.first) == 9) && (*(res2.second) == backup3)));
+
+}
+
 
 int main(int argc, char* argv[]) {
     Catch::Session session;
 
     auto cli = session.cli()
         | Opt(fifo_size, "Fifo size")
-             ["-s"]["--fifo-size"]
+             ["-x"]["--fifo-size"]
              ("Fifo test size");
 
     session.cli(cli);

@@ -1,9 +1,9 @@
 #pragma once
 #include <algorithm>
 #include <vector>
+#include <stdio.h>
 
 namespace collections {
-
 
   template <class T>
 
@@ -56,6 +56,7 @@ namespace collections {
       /// Costruttore che accetta un'implementazione
       /// di un iteratore
       iterator_base(iterator_impl &&impl);
+      iterator_base(iterator_base const& copy) = default;
       iterator_impl _impl;
     };
 
@@ -83,6 +84,7 @@ namespace collections {
     /// Classe iteratore generica per ogni tipo di coda
     class iterator : public iterator_base<iterator> {
     public:
+      iterator(iterator const& copy) = default;
       T& operator *();
 
     private:
@@ -93,17 +95,14 @@ namespace collections {
     /// Classe iteratore costante generica
     class const_iterator : public iterator_base<const_iterator> {
     public:
+      const_iterator(const_iterator const& copy) = default;
       const T& operator *();
+
 
     private:
       const_iterator(iterator_impl &&impl);
       friend class fifo<T>;
     };
-
-    /**
-      * Operatori per ottenere iteratori all'inizio e alla fine
-      * della coda
-      */
 
     iterator begin();
     const_iterator begin() const;
