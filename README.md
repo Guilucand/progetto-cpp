@@ -19,3 +19,34 @@ Cio' permette di poter utilizzare la sintassi del for aggiunta nel c++11:
     }
 
 La funzione *first_mismatch(fifo&lt;T&gt;, fifo&lt;T&gt;)* permette di trovare gli iteratori ai primi elementi delle due code che differiscono. Nel caso in cui non ce ne siano oppure si raggiunga la fine di una coda un iteratore alla fine del contenitore e' ritornato. 
+
+
+## Istruzioni per l'utilizzo:
+
+### Compilazione
+cd build
+cmake ..
+make
+
+### Installazione
+make install (default bin)
+
+### Test
+make test
+
+### Documentazione
+make doc
+
+### Stats
+make stats
+
+### Complessita' ciclomatica
+make cyclo
+
+### Linter
+make tidy
+
+
+
+Autore: Andrea Cracco
+Matricola: VR397650
