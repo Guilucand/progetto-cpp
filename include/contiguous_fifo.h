@@ -7,13 +7,16 @@
 
 namespace collections {
 
+  /// Classe che rappresenta una vettore contiguo di elementi in memoria
   template <class T>
   class contiguous_fifo : public fifo<T> {
   public:
     contiguous_fifo();
+    ~contiguous_fifo() override;
+
     contiguous_fifo(const contiguous_fifo<T>& other);
-    T& operator[](int index) override;
-    const T& operator[](int index) const override;
+    T& operator[](size_t index) override;
+    const T& operator[](size_t index) const override;
     void add(const T &value) override;
     contiguous_fifo<T> operator+(const fifo<T> &other) const;
 
@@ -21,8 +24,9 @@ namespace collections {
   private:
     typename fifo<T>::iterator_impl __get_it_impl(size_t index) const override;
 
-    std::unique_ptr<T[]> data;
+    T *data = nullptr;
+    int lookup_pos = 0;
   };
 
-  #include "contiguous_fifo.i.h"
-}
+  #include "impl/contiguous_fifo.i.h"
+} // namespace collections

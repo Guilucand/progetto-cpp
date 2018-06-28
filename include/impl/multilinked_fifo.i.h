@@ -4,7 +4,6 @@
 template <class T, size_t _BucketSize>
 multilinked_fifo<T, _BucketSize>::multilinked_fifo() {
   data = last = nullptr;
-  this->_reserved = this->_size = 0;
 }
 
 template <class T, size_t _BucketSize>
@@ -28,20 +27,20 @@ multilinked_fifo<T, _BucketSize>::multilinked_fifo(const multilinked_fifo<T, _Bu
 }
 
 template <class T, size_t _BucketSize>
-T& multilinked_fifo<T, _BucketSize>::operator[](int index) {
+T& multilinked_fifo<T, _BucketSize>::operator[](size_t index) {
   element *current = data;
 
-  for (int i = 0; i < index; i+= _BucketSize)
+  for (size_t i = _BucketSize - 1; i < index; i+= _BucketSize)
     current = current->next;
 
   return current->data[index % _BucketSize];
 }
 
 template <class T, size_t _BucketSize>
-const T& multilinked_fifo<T, _BucketSize>::operator[](int index) const {
+const T& multilinked_fifo<T, _BucketSize>::operator[](size_t index) const {
   element *current = data;
 
-  for (int i = 0; i < index; i+= _BucketSize)
+  for (size_t i = _BucketSize - 1; i < index; i+= _BucketSize)
     current = current->next;
 
   return current->data[index % _BucketSize];
@@ -61,8 +60,9 @@ void multilinked_fifo<T, _BucketSize>::add(const T &value) {
     last = last->next;
   }
 
-  last->data[this->_size++ % _BucketSize] = value;
-  this->_reserved = this->_size;
+  last->data[this->_size % _BucketSize] = value;
+  this->_size++;
+  this->_reserved++;
 }
 
 template <class T, size_t _BucketSize>

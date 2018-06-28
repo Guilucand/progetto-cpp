@@ -28,16 +28,16 @@ linked_fifo<T>::linked_fifo(const linked_fifo<T>& other) : fifo<T>(other) {
 }
 
 template <class T>
-T& linked_fifo<T>::operator[](int index) {
+T& linked_fifo<T>::operator[](size_t index) {
   element *current = data;
-  for (int i = 0; i < index; i++) current = current->next;
+  for (size_t i = 0; i < index; i++) current = current->next;
   return current->data;
 }
 
 template <class T>
-const T& linked_fifo<T>::operator[](int index) const {
+const T& linked_fifo<T>::operator[](size_t index) const {
   element *current = data;
-  for (int i = 0; i < index; i++) current = current->next;
+  for (size_t i = 0; i < index; i++) current = current->next;
   return current->data;
 }
 
@@ -51,6 +51,8 @@ void linked_fifo<T>::add(const T &value) {
 
   last->next = new element {value, nullptr};
   last = last->next;
+  this->_reserved++;
+  this->_size++;
 }
 
 template <class T>

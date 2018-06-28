@@ -6,14 +6,16 @@
 
 namespace collections {
 
+  /// Classe che rappresenta una forward linked-list con piu' elementi
+  /// per ciascun nodo della lista
   template <class T, size_t _BucketSize>
   class multilinked_fifo : public fifo<T> {
   public:
     multilinked_fifo();
-    ~multilinked_fifo();
+    ~multilinked_fifo() override;
     multilinked_fifo(const multilinked_fifo<T, _BucketSize>& other);
-    T& operator[](int index) override;
-    const T& operator[](int index) const override;
+    T& operator[](size_t index) override;
+    const T& operator[](size_t index) const override;
     void add(const T &value) override;
     multilinked_fifo<T, _BucketSize> operator+(const fifo<T> &other) const;
 
@@ -29,5 +31,5 @@ namespace collections {
     element* last;
   };
 
-  #include "multilinked_fifo.i.h"
+  #include "impl/multilinked_fifo.i.h"
 }

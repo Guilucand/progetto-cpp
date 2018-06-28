@@ -6,20 +6,20 @@
 
 namespace collections {
 
+  /// Classe che rappresenta una forward linked-list
   template <class T>
   class linked_fifo : public fifo<T> {
   public:
     linked_fifo();
-    ~linked_fifo();
+    ~linked_fifo() override;
     linked_fifo(const linked_fifo<T>& other);
-    T& operator[](int index) override;
-    const T& operator[](int index) const override;
+    T& operator[](size_t index) override;
+    const T& operator[](size_t index) const override;
     void add(const T &value) override;
     linked_fifo<T> operator+(const fifo<T> &other) const;
 
   private:
     typename fifo<T>::iterator_impl __get_it_impl(size_t index) const override;
-
 
     struct element {
       T data;
@@ -30,5 +30,5 @@ namespace collections {
     element* last;
   };
 
-  #include "linked_fifo.i.h"
+  #include "impl/linked_fifo.i.h"
 }
