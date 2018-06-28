@@ -88,6 +88,10 @@ add_executable(collections_test EXCLUDE_FROM_ALL
                ${PROJECT_SOURCE_DIR}/test/test.cpp)
 target_link_libraries(collections_test collections)
 
+install (TARGETS collections DESTINATION lib)
+install (DIRECTORY include/
+         DESTINATION include/collections)
+
 # ------------------------------------------------------------------------------
 ### CUSTOM TARGETS ###
 
